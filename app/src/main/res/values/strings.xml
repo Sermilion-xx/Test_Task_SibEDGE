@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SibEDGE_Test</string>
+
+    <string name="list">List</string>
+    <string name="scaling">Scaling</string>
+    <string name="service">Service</string>
+    <string name="map">Map</string>
+    <string name="add">Add</string>
+    <string name="item_name">Item name:</string>
+</resources>

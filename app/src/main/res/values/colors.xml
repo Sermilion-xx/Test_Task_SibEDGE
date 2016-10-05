@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#8D8D8D</color>
+    <color name="colorPrimary60">#60222222</color>
+    <color name="colorPrimaryDark">#6c6c6c</color>
+    <color name="colorPrimaryDark30">#90222222</color>
+    <color name="colorAccent">#0bb9f4</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorWhite50">#50ffffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlueLight">#abe3fa</color>
+    <color name="colorGrayLight">#f1f2f4</color>
+    <color name="colorSwitchThumbNormal">@color/colorAccent</color>
+    <color name="colorTextGray">#999999</color>
+    <color name="colorTextLightBlack">#4D4D4D</color>
+</resources>
