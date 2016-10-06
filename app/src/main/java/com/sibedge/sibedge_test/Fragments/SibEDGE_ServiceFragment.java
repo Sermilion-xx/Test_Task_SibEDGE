@@ -65,7 +65,7 @@ public class SibEDGE_ServiceFragment extends Fragment implements AsyncResponse {
 
         if (quotesNodeList != null) {
             for (int i = 0; i < quotesNodeList.getLength(); i++) {
-                if(quotesNodeList.item(i) instanceof Element){
+                if (quotesNodeList.item(i) instanceof Element) {
                     Element e = (Element) quotesNodeList.item(i);
                     String id = parser.getValue(e, XMLParser.KEY_ID);
                     String date = parser.getValue(e, XMLParser.KEY_DATE);
@@ -75,17 +75,30 @@ public class SibEDGE_ServiceFragment extends Fragment implements AsyncResponse {
                 }
             }
         }
-        mAdapter.setmItems(mItems);
+        mAdapter = new ServiceRecyclerAdapter(mItems);
+        mRecyclerView.setAdapter(mAdapter);
         mprogressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("mItems", mItems);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+        if(savedInstanceState!=null){
+            mItems = savedInstanceState.getParcelableArrayList("mItems");
+        }
+        if (mItems.size() == 0) {
             GetXMLTask asyncTask = new GetXMLTask();
             asyncTask.setDelegate(this);
             final File xmlFile = Utility.getOutputMediaFile(Utility.MEDIA_TYPE_IMAGE, Environment.DIRECTORY_DOCUMENTS, "sibedge.xml");
             asyncTask.execute("http://storage.space-o.ru/testXmlFeed.xml", xmlFile);
+        }
     }
 
     @Nullable
@@ -94,12 +107,12 @@ public class SibEDGE_ServiceFragment extends Fragment implements AsyncResponse {
         View view = inflater.inflate(R.layout.fragment_service, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.service_recyclerView);
         mprogressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
-        mprogressBar.setVisibility(View.VISIBLE);
+        if (mItems.size() == 0)
+            mprogressBar.setVisibility(View.VISIBLE);
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mAdapter = new ServiceRecyclerAdapter(mItems);
         mRecyclerView.setAdapter(mAdapter);
-
         return view;
     }
 

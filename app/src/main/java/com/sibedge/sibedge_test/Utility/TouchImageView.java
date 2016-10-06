@@ -48,6 +48,7 @@ public class TouchImageView extends ImageView {
         super(context, attrs);
         sharedConstructing(context);
     }
+
     public void resetView() {
 
         // We can be in one of these 3 states
@@ -69,7 +70,6 @@ public class TouchImageView extends ImageView {
         setImageMatrix(matrix);
         setScaleType(ScaleType.MATRIX);
     }
-
 
 
     private void sharedConstructing(Context context) {
@@ -245,45 +245,36 @@ public class TouchImageView extends ImageView {
         fixTrans();
     }
 
-    public void zoomOut() { //bind on zoomIn Button
-//        oldScale = saveScale;
-
-        if(saveScale<=maxScale)
-        {
+    public void zoomOut() {
+        if (saveScale <= maxScale) {
             saveScale += .1;
             matrix.setScale(saveScale, saveScale);
             setImageMatrix(matrix);
             invalidate();
 
-            // Center the image
             Drawable drawable = getDrawable();
             int bmWidth = drawable.getIntrinsicWidth();
             int bmHeight = drawable.getIntrinsicHeight();
 
-            // Center the image
             float redundantYSpace = 0.0f;
             float redundantXSpace = 0.0f;
 
-            if(bmHeight>bmWidth)
-            {
+            if (bmHeight > bmWidth) {
                 redundantXSpace = viewWidth - (saveScale * bmWidth);
                 redundantXSpace /= 2;
-            }
-            else
-            {
-                redundantYSpace = viewHeight - (saveScale * bmHeight) ;
+            } else {
+                redundantYSpace = viewHeight - (saveScale * bmHeight);
                 redundantYSpace /= 2;
             }
 
-            matrix.postTranslate(redundantXSpace , redundantYSpace );
+            matrix.postTranslate(redundantXSpace, redundantYSpace);
             setImageMatrix(matrix);
             invalidate();
         }
     }
 
     public void zoomIn() {
-        if(saveScale>=minScale)
-        {
+        if (saveScale >= minScale) {
             saveScale -= .1;
             matrix.setScale(saveScale, saveScale);
             setImageMatrix(matrix);
@@ -298,17 +289,14 @@ public class TouchImageView extends ImageView {
             // Center the image
             float redundantYSpace = 0.0f;
             float redundantXSpace = 0.0f;
-            if(bmHeight>bmWidth)
-            {
+            if (bmHeight > bmWidth) {
                 redundantXSpace = viewWidth - (saveScale * bmWidth);
                 redundantXSpace /= 2;
-            }
-            else
-            {
-                redundantYSpace = viewHeight - (saveScale * bmHeight) ;
+            } else {
+                redundantYSpace = viewHeight - (saveScale * bmHeight);
                 redundantYSpace /= 2;
             }
-            matrix.postTranslate(redundantXSpace , redundantYSpace );
+            matrix.postTranslate(redundantXSpace, redundantYSpace);
             setImageMatrix(matrix);
             invalidate();
         }

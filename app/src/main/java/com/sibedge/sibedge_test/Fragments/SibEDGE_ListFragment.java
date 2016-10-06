@@ -57,9 +57,21 @@ public class SibEDGE_ListFragment extends BaseFragment {
         return mItems;
     }
 
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("mItems", mItems);
+    }
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        if(savedInstanceState!=null){
+            mItems = savedInstanceState.getParcelableArrayList("mItems");
+        }
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.list_recyclerView);
         mLinearLayoutManager = new LinearLayoutManager(getContext());
