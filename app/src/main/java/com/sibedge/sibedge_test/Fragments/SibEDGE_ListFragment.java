@@ -15,7 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.sibedge.sibedge_test.Activities.HostActivity;
-import com.sibedge.sibedge_test.Adapters.RecyclerAdapter;
+import com.sibedge.sibedge_test.Adapters.ListRecyclerAdapter;
 import com.sibedge.sibedge_test.Utility.ClickListener;
 import com.sibedge.sibedge_test.Model.ListRow;
 import com.sibedge.sibedge_test.Utility.Utility;
@@ -31,7 +31,7 @@ public class SibEDGE_ListFragment extends BaseFragment {
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
-    private RecyclerAdapter mAdapter;
+    private ListRecyclerAdapter mAdapter;
     private ArrayList<ListRow> mItems;
     private Utility.ItemClick itemClickType;
     private HostActivity hostActivity;
@@ -65,7 +65,7 @@ public class SibEDGE_ListFragment extends BaseFragment {
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mAdapter = new RecyclerAdapter(mItems, getContext(), this);
+        mAdapter = new ListRecyclerAdapter(mItems, getContext(), this);
         mAdapter.setOnItemClickListener(new ClickListener() {
             @Override
             public void onItemClick(int position, View v) {

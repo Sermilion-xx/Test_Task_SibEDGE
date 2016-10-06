@@ -46,7 +46,7 @@ public class SibEDGE_ScalingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                fileUri = Utility.getOutputMediaFileUri(Utility.MEDIA_TYPE_IMAGE);
+                fileUri = Utility.getOutputMediaFileUri(Utility.MEDIA_TYPE_IMAGE, "scale_picture");
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
                 startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
             }

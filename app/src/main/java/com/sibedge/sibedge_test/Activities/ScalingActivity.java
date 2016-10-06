@@ -11,9 +11,11 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.sibedge.sibedge_test.R;
+import com.sibedge.sibedge_test.Utility.TouchImageView;
 import com.sibedge.sibedge_test.Utility.Utility;
 
 import java.io.IOException;
@@ -22,27 +24,9 @@ import java.io.IOException;
  * Created by Sermilion on 06/10/2016.
  */
 
-public class ScalingActivity extends BaseActivity implements View.OnTouchListener{
+public class ScalingActivity extends BaseActivity{
 
-    private ImageView scalingImage;
-
-    private final static String TAG = "ScalingActivity";
-
-    // These matrices will be used to move and zoom image
-    Matrix matrix = new Matrix();
-    Matrix savedMatrix = new Matrix();
-
-    // We can be in one of these 3 states
-    static final int NONE = 0;
-    static final int DRAG = 1;
-    static final int ZOOM = 2;
-    int mode = NONE;
-
-    // Remember some things for zooming
-    PointF start = new PointF();
-    PointF mid = new PointF();
-    float oldDist = 1f;
-    String savedItemClicked;
+    private TouchImageView scalingImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +35,13 @@ public class ScalingActivity extends BaseActivity implements View.OnTouchListene
         Toolbar mToolbar = find(R.id.scaling_activity_toolbar);
         mToolbar.setTitle("Scaling Activity");
         setSupportActionBar(mToolbar);
-
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        scalingImage = (ImageView) findViewById(R.id.scaling_image);
+
+        scalingImage = (TouchImageView) findViewById(R.id.scaling_image);
+        Button zoomInButton = find(R.id.button_zoom_in);
+        Button zoomOutButton = find(R.id.button_zoom_out);
+
         Uri fileUri = getIntent().getParcelableExtra("fileUri");
         try {
             Bitmap bitmap = Utility.getThumbnail(fileUri, this);
@@ -63,9 +50,21 @@ public class ScalingActivity extends BaseActivity implements View.OnTouchListene
             e.printStackTrace();
         }
 
-        scalingImage.setOnTouchListener(this);
-
-
+//        zoomInButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                MotionEvent event = MotionEvent.obtain(1000, 1000, MotionEvent.ACTION_POINTER_DOWN, 200,200,0);
+//                event.setLocation(0,0);
+//                oldDist = spacing(event);
+//                Log.d(TAG, "oldDist=" + oldDist);
+//                if (oldDist > 10f) {
+//                    savedMatrix.set(matrix);
+//                    midPoint(mid, event);
+//                    mode = ZOOM;
+//                    Log.d(TAG, "mode=ZOOM");
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -77,94 +76,4 @@ public class ScalingActivity extends BaseActivity implements View.OnTouchListene
         }
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        dumpEvent(event);
-
-        // Handle touch events here...
-        switch (event.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN:
-                savedMatrix.set(matrix);
-                start.set(event.getX(), event.getY());
-                Log.d(TAG, "mode=DRAG");
-                mode = DRAG;
-                break;
-            case MotionEvent.ACTION_POINTER_DOWN:
-                oldDist = spacing(event);
-                Log.d(TAG, "oldDist=" + oldDist);
-                if (oldDist > 10f) {
-                    savedMatrix.set(matrix);
-                    midPoint(mid, event);
-                    mode = ZOOM;
-                    Log.d(TAG, "mode=ZOOM");
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_POINTER_UP:
-                mode = NONE;
-                Log.d(TAG, "mode=NONE");
-                break;
-            case MotionEvent.ACTION_MOVE:
-                if (mode == DRAG) {
-                    matrix.set(savedMatrix);
-                    matrix.postTranslate(event.getX() - start.x, event.getY()
-                            - start.y);
-                } else if (mode == ZOOM) {
-                    float newDist = spacing(event);
-                    Log.d(TAG, "newDist=" + newDist);
-                    if (newDist > 10f) {
-                        matrix.set(savedMatrix);
-                        float scale = newDist / oldDist;
-                        matrix.postScale(scale, scale, mid.x, mid.y);
-                    }
-                }
-                break;
-        }
-
-        scalingImage.setImageMatrix(matrix);
-        return true;
-    }
-
-    private void dumpEvent(MotionEvent event) {
-        String names[] = { "DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE",
-                "POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?" };
-        StringBuilder sb = new StringBuilder();
-        int action = event.getAction();
-        int actionCode = action & MotionEvent.ACTION_MASK;
-        sb.append("event ACTION_").append(names[actionCode]);
-        if (actionCode == MotionEvent.ACTION_POINTER_DOWN
-                || actionCode == MotionEvent.ACTION_POINTER_UP) {
-            sb.append("(pid ").append(
-                    action >> MotionEvent.ACTION_POINTER_ID_SHIFT);
-            sb.append(")");
-        }
-        sb.append("[");
-        for (int i = 0; i < event.getPointerCount(); i++) {
-            sb.append("#").append(i);
-            sb.append("(pid ").append(event.getPointerId(i));
-            sb.append(")=").append((int) event.getX(i));
-            sb.append(",").append((int) event.getY(i));
-            if (i + 1 < event.getPointerCount())
-                sb.append(";");
-        }
-        sb.append("]");
-
-    }
-
-    /** Determine the space between the first two fingers */
-    private float spacing(MotionEvent event) {
-        float x = event.getX(0) - event.getX(1);
-        float y = event.getY(0) - event.getY(1);
-        return (float)Math.sqrt(x * x + y * y);
-    }
-
-    /** Calculate the mid point of the first two fingers */
-    private void midPoint(PointF point, MotionEvent event) {
-        float x = event.getX(0) + event.getX(1);
-        float y = event.getY(0) + event.getY(1);
-        point.set(x / 2, y / 2);
-    }
-
-
 }

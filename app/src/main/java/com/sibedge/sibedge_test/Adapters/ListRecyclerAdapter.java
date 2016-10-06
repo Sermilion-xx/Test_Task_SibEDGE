@@ -22,7 +22,7 @@ import java.util.ArrayList;
 /**
  * Created by Sermilion on 05/10/2016.
  */
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapter.ViewHolder> {
 
     private static ClickListener clickListener;
     private static int TYPE_0 = 0;
@@ -31,8 +31,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private Context mContext;
     private SibEDGE_ListFragment mListFragment;
 
-    public RecyclerAdapter(ArrayList<ListRow> photos, Context context, SibEDGE_ListFragment listFragment) {
-        mItems = photos;
+    public ListRecyclerAdapter(ArrayList<ListRow> items, Context context, SibEDGE_ListFragment listFragment) {
+        mItems = items;
         mContext = context;
         mListFragment = listFragment;
     }
@@ -65,14 +65,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         private ImageView mImageView;
         private TextView mTextView;
         private ImageButton mImageButton;
-        private RecyclerAdapter mRecyclerAdapter;
+        private ListRecyclerAdapter mListRecyclerAdapter;
 
-        public ViewHolder(View view, RecyclerAdapter recyclerAdapter) {
+        public ViewHolder(View view, ListRecyclerAdapter listRecyclerAdapter) {
             super(view);
             mImageView = (ImageView) view.findViewById(R.id.list_imageView);
             mTextView = (TextView) view.findViewById(R.id.list_textView);
             mImageButton = (ImageButton) view.findViewById(R.id.list_button);
-            mRecyclerAdapter = recyclerAdapter;
+            mListRecyclerAdapter = listRecyclerAdapter;
             view.setOnClickListener(this);
             view.setOnLongClickListener(this);
 
@@ -80,13 +80,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    ListRow row = mRecyclerAdapter.mItems.get(position);
+                    ListRow row = mListRecyclerAdapter.mItems.get(position);
                     if (row.isFlagged()) {
-                        mRecyclerAdapter.mItems.get(position).setFlagged(false);
+                        mListRecyclerAdapter.mItems.get(position).setFlagged(false);
                     } else {
-                        mRecyclerAdapter.mItems.get(position).setFlagged(true);
+                        mListRecyclerAdapter.mItems.get(position).setFlagged(true);
                     }
-                    mRecyclerAdapter.notifyItemChanged(position);
+                    mListRecyclerAdapter.notifyItemChanged(position);
                 }
             });
         }
@@ -121,6 +121,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     public void setOnItemClickListener(ClickListener clickListener) {
-        RecyclerAdapter.clickListener = clickListener;
+        ListRecyclerAdapter.clickListener = clickListener;
     }
 }
