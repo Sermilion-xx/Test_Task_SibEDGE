@@ -5,15 +5,38 @@
     android:paddingTop="20dp"
     android:paddingBottom="20dp">
 
+    <TextView
+        android:id="@+id/service_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00000"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        />
 
     <TextView
+        android:layout_below="@+id/service_id"
         android:id="@+id/service_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Some text"
         android:textSize="17sp"
         android:textStyle="bold"
-        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        />
+
+
+
+    <TextView
+        android:layout_below="@+id/service_textView"
+        android:id="@+id/service_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Some text"
+        android:textSize="17sp"
+        android:textStyle="bold"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         />

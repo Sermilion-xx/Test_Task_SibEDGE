@@ -3,13 +3,17 @@ package com.sibedge.sibedge_test.Adapters;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sibedge.sibedge_test.Model.ListRow;
+import com.sibedge.sibedge_test.Model.XmlListRow;
 import com.sibedge.sibedge_test.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -19,10 +23,15 @@ import java.util.ArrayList;
 
 public class ServiceRecyclerAdapter extends RecyclerView.Adapter<ServiceRecyclerAdapter.ViewHolder> {
 
-    private ArrayList<String> mItems;
+    private ArrayList<XmlListRow> mItems;
 
-    public ServiceRecyclerAdapter(ArrayList<String> items) {
+    public ServiceRecyclerAdapter(ArrayList<XmlListRow> items) {
         this.mItems = items;
+    }
+
+    public void setmItems(ArrayList<XmlListRow> mItems) {
+        this.mItems = mItems;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -34,7 +43,7 @@ public class ServiceRecyclerAdapter extends RecyclerView.Adapter<ServiceRecycler
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String row = mItems.get(position);
+        XmlListRow row = mItems.get(position);
         holder.bindTitle(row);
     }
 
@@ -46,14 +55,20 @@ public class ServiceRecyclerAdapter extends RecyclerView.Adapter<ServiceRecycler
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTextView;
+        private TextView mId;
+        private TextView mDate;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.service_textView);
+            mId       = (TextView) itemView.findViewById(R.id.service_id);
+            mDate     = (TextView) itemView.findViewById(R.id.service_date);
         }
 
-        public void bindTitle(String row) {
-            mTextView.setText(row);
+        public void bindTitle(XmlListRow row) {
+            mTextView.setText(row.getText());
+            mId.setText(String.valueOf(row.getId()));
+            mDate.setText(row.getDate());
         }
     }
 
