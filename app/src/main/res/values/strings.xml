@@ -8,4 +8,6 @@
     <string name="add">Add</string>
     <string name="item_name">Item name:</string>
     <string name="please_choose_an_image">Please choose an Image</string>
+    <string name="zoom_out">Zoom out</string>
+    <string name="zoom_in">Zoom in</string>
 </resources>
