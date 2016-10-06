@@ -1,8 +1,10 @@
 package com.sibedge.sibedge_test.Utility;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -67,6 +69,9 @@ public class TouchImageView extends ImageView {
         setImageMatrix(matrix);
         setScaleType(ScaleType.MATRIX);
     }
+
+
+
     private void sharedConstructing(Context context) {
         super.setClickable(true);
         this.context = context;
@@ -238,5 +243,74 @@ public class TouchImageView extends ImageView {
             setImageMatrix(matrix);
         }
         fixTrans();
+    }
+
+    public void zoomOut() { //bind on zoomIn Button
+//        oldScale = saveScale;
+
+        if(saveScale<=maxScale)
+        {
+            saveScale += .1;
+            matrix.setScale(saveScale, saveScale);
+            setImageMatrix(matrix);
+            invalidate();
+
+            // Center the image
+            Drawable drawable = getDrawable();
+            int bmWidth = drawable.getIntrinsicWidth();
+            int bmHeight = drawable.getIntrinsicHeight();
+
+            // Center the image
+            float redundantYSpace = 0.0f;
+            float redundantXSpace = 0.0f;
+
+            if(bmHeight>bmWidth)
+            {
+                redundantXSpace = viewWidth - (saveScale * bmWidth);
+                redundantXSpace /= 2;
+            }
+            else
+            {
+                redundantYSpace = viewHeight - (saveScale * bmHeight) ;
+                redundantYSpace /= 2;
+            }
+
+            matrix.postTranslate(redundantXSpace , redundantYSpace );
+            setImageMatrix(matrix);
+            invalidate();
+        }
+    }
+
+    public void zoomIn() {
+        if(saveScale>=minScale)
+        {
+            saveScale -= .1;
+            matrix.setScale(saveScale, saveScale);
+            setImageMatrix(matrix);
+            invalidate();
+
+            // Center the image
+            // Center the image
+            Drawable drawable = getDrawable();
+            int bmWidth = drawable.getIntrinsicWidth();
+            int bmHeight = drawable.getIntrinsicHeight();
+
+            // Center the image
+            float redundantYSpace = 0.0f;
+            float redundantXSpace = 0.0f;
+            if(bmHeight>bmWidth)
+            {
+                redundantXSpace = viewWidth - (saveScale * bmWidth);
+                redundantXSpace /= 2;
+            }
+            else
+            {
+                redundantYSpace = viewHeight - (saveScale * bmHeight) ;
+                redundantYSpace /= 2;
+            }
+            matrix.postTranslate(redundantXSpace , redundantYSpace );
+            setImageMatrix(matrix);
+            invalidate();
+        }
     }
 }

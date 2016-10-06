@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -50,21 +52,19 @@ public class ScalingActivity extends BaseActivity{
             e.printStackTrace();
         }
 
-//        zoomInButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                MotionEvent event = MotionEvent.obtain(1000, 1000, MotionEvent.ACTION_POINTER_DOWN, 200,200,0);
-//                event.setLocation(0,0);
-//                oldDist = spacing(event);
-//                Log.d(TAG, "oldDist=" + oldDist);
-//                if (oldDist > 10f) {
-//                    savedMatrix.set(matrix);
-//                    midPoint(mid, event);
-//                    mode = ZOOM;
-//                    Log.d(TAG, "mode=ZOOM");
-//                }
-//            }
-//        });
+        zoomInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scalingImage.zoomIn();
+            }
+        });
+
+        zoomOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scalingImage.zoomOut();
+            }
+        });
     }
 
     @Override

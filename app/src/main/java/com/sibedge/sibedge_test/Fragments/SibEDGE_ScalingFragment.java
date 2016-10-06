@@ -1,7 +1,6 @@
 package com.sibedge.sibedge_test.Fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import com.sibedge.sibedge_test.Activities.ScalingActivity;
 import com.sibedge.sibedge_test.R;
 import com.sibedge.sibedge_test.Utility.Utility;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
