@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -22,32 +21,31 @@ import com.sibedge.sibedge_test.Fragments.SibEDGE_MapFragment;
 import com.sibedge.sibedge_test.Fragments.SibEDGE_ScalingFragment;
 import com.sibedge.sibedge_test.Fragments.SibEDGE_ServiceFragment;
 import com.sibedge.sibedge_test.Model.ListRow;
-import com.sibedge.sibedge_test.Model.Utility;
+import com.sibedge.sibedge_test.Utility.Utility;
 import com.sibedge.sibedge_test.R;
 
 import java.util.ArrayList;
 
 public class HostActivity extends BaseActivity {
 
-    private Toolbar mToolbar;
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
-    private ViewPagerAdapter mAdapter;
-    private Button mAddButton;
     private EditText userInput;
     private SibEDGE_ListFragment listFragment;
     private AlertDialog newItemalertDialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host);
 
-        mViewPager = find(R.id.host_activity_viewPages);
-        mTabLayout = find(R.id.host_activity_tabLayout);
-        mToolbar = find(R.id.host_activity_toolbar);
-        mAddButton = find(R.id.list_add_button);
+        ViewPager mViewPager = find(R.id.host_activity_viewPages);
+        TabLayout mTabLayout = find(R.id.host_activity_tabLayout);
+        Toolbar mToolbar = find(R.id.host_activity_toolbar);
+        Button mAddButton = find(R.id.list_add_button);
+
+        mToolbar.setTitle("SibEDGE");
+        setSupportActionBar(mToolbar);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,11 +54,9 @@ public class HostActivity extends BaseActivity {
                 showNewItemDialog();
             }
         });
-        mAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewPagerAdapter mAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        if (mToolbar != null) {
-            mToolbar.setTitle("SibEDGE");
-        }
+
         ArrayList<ListRow> mItems = Utility.getItemsFromPref(this);
         listFragment = FragmentFactory.getListFragment();
         listFragment.setHostActivity(this);
@@ -80,14 +76,14 @@ public class HostActivity extends BaseActivity {
         mTabLayout.setSelectedTabIndicatorColor(Color.WHITE);
     }
 
-    public void showNewItemDialog(final int...position) {
+    public void showNewItemDialog(final int... position) {
         LayoutInflater li = LayoutInflater.from(HostActivity.this);
         View promptsView = li.inflate(R.layout.item_dialog, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 HostActivity.this);
         alertDialogBuilder.setView(promptsView);
         userInput = (EditText) promptsView.findViewById(R.id.editTextDialogUserInput);
-        if(position.length>0){
+        if (position.length > 0) {
             userInput.setText(listFragment.getmItems().get(position[0]).getTitle());
             userInput.setSelection(userInput.length());
             userInput.requestFocus();
@@ -98,11 +94,11 @@ public class HostActivity extends BaseActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 String title = userInput.getText().toString();
-                                if(listFragment.getItemClickType() == Utility.ItemClick.SHORT){
+                                if (listFragment.getItemClickType() == Utility.ItemClick.SHORT) {
                                     listFragment.editRowItem(title, position[0]);
-                                }else if(listFragment.getItemClickType() == Utility.ItemClick.LONG){
+                                } else if (listFragment.getItemClickType() == Utility.ItemClick.LONG) {
 
-                                }else if(listFragment.getItemClickType() == Utility.ItemClick.ADD_BUTTON){
+                                } else if (listFragment.getItemClickType() == Utility.ItemClick.ADD_BUTTON) {
                                     listFragment.addRowItem(title);
                                 }
 

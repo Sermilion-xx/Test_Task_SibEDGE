@@ -1,4 +1,4 @@
-package com.sibedge.sibedge_test.Model;
+package com.sibedge.sibedge_test.Utility;
 
 import android.view.View;
 

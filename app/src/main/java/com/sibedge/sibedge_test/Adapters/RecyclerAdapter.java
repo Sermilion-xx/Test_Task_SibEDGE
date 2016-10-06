@@ -1,10 +1,8 @@
 package com.sibedge.sibedge_test.Adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sibedge.sibedge_test.Fragments.SibEDGE_ListFragment;
-import com.sibedge.sibedge_test.Model.ClickListener;
+import com.sibedge.sibedge_test.Utility.ClickListener;
 import com.sibedge.sibedge_test.Model.ListRow;
-import com.sibedge.sibedge_test.Model.Utility;
+import com.sibedge.sibedge_test.Utility.Utility;
 import com.sibedge.sibedge_test.R;
 
 import java.util.ArrayList;

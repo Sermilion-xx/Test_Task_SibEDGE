@@ -16,9 +16,9 @@ import android.widget.ListView;
 
 import com.sibedge.sibedge_test.Activities.HostActivity;
 import com.sibedge.sibedge_test.Adapters.RecyclerAdapter;
-import com.sibedge.sibedge_test.Model.ClickListener;
+import com.sibedge.sibedge_test.Utility.ClickListener;
 import com.sibedge.sibedge_test.Model.ListRow;
-import com.sibedge.sibedge_test.Model.Utility;
+import com.sibedge.sibedge_test.Utility.Utility;
 import com.sibedge.sibedge_test.R;
 
 import java.util.ArrayList;
