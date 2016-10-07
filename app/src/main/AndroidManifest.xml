@@ -24,8 +24,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Activities.HostActivity">
+        android:theme="@style/AppTheme"
+        android:name="android.support.multidex.MultiDexApplication">
+
+    <activity android:name=".Activities.HostActivity">
 
         </activity>
         <activity android:name=".Activities.ScalingActivity" />
