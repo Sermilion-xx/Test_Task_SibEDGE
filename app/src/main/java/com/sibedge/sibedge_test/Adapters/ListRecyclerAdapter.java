@@ -1,6 +1,7 @@
 package com.sibedge.sibedge_test.Adapters;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -86,6 +87,13 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
                     } else {
                         mListRecyclerAdapter.mItems.get(position).setFlagged(true);
                     }
+                    new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            Utility.saveItemsToPref(mContext, mListRecyclerAdapter.mItems);
+                            return null;
+                        }
+                    }.execute();
                     mListRecyclerAdapter.notifyItemChanged(position);
                 }
             });

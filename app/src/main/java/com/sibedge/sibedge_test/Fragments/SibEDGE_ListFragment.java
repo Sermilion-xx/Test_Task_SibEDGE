@@ -61,6 +61,7 @@ public class SibEDGE_ListFragment extends BaseFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        setRetainInstance(true);
         outState.putParcelableArrayList("mItems", mItems);
     }
 
