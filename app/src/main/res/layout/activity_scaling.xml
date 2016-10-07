@@ -10,7 +10,7 @@
         android:background="@color/colorPrimary"
         android:fitsSystemWindows="true" />
 
-    <com.sibedge.sibedge_test.Utility.TouchImageView
+    <com.sibedge.sibedge_test.Model.TouchImageView
         android:id="@+id/scaling_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

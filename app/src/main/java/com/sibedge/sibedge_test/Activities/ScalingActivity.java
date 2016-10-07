@@ -1,23 +1,15 @@
 package com.sibedge.sibedge_test.Activities;
 
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.FloatMath;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.sibedge.sibedge_test.R;
-import com.sibedge.sibedge_test.Utility.TouchImageView;
+import com.sibedge.sibedge_test.Model.TouchImageView;
 import com.sibedge.sibedge_test.Utility.Utility;
 
 import java.io.IOException;

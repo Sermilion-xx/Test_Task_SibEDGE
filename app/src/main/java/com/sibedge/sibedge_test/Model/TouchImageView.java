@@ -1,4 +1,4 @@
-package com.sibedge.sibedge_test.Utility;
+package com.sibedge.sibedge_test.Model;
 
 import android.content.Context;
 import android.graphics.Bitmap;

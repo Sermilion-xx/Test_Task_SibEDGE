@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,19 +19,13 @@ import com.sibedge.sibedge_test.Utility.GetXMLTask;
 import com.sibedge.sibedge_test.Utility.Utility;
 import com.sibedge.sibedge_test.Utility.XMLParser;
 
-import org.w3c.dom.CDATASection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.File;
 import java.util.ArrayList;
-
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 
 /**
@@ -93,11 +85,11 @@ public class SibEDGE_ServiceFragment extends Fragment implements AsyncResponse {
         if(savedInstanceState!=null){
             mItems = savedInstanceState.getParcelableArrayList("mItems");
         }
-        if (mItems.size() == 0) {
+        if ((mItems != null ? mItems.size() : 0) == 0) {
             GetXMLTask asyncTask = new GetXMLTask();
             asyncTask.setDelegate(this);
             final File xmlFile = Utility.getOutputMediaFile(Utility.MEDIA_TYPE_IMAGE, Environment.DIRECTORY_DOCUMENTS, "sibedge.xml");
-            asyncTask.execute("http://storage.space-o.ru/testXmlFeed.xml", xmlFile);
+            asyncTask.execute(getResources().getString(R.string.xmlURL), xmlFile);
         }
     }
 

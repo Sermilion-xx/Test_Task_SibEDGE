@@ -65,6 +65,7 @@ public class HostActivity extends BaseActivity {
         SibEDGE_ScalingFragment scalingFragment = FragmentFactory.getScalingFragment();
         SibEDGE_ServiceFragment serviceFragment = FragmentFactory.getServiceFragment();
         SibEDGE_MapFragment mapFragment = FragmentFactory.getMapFragment();
+        mapFragment.setmHostActivity(this);
 
         mAdapter.addFragment(listFragment, getResourceString(R.string.list));
         mAdapter.addFragment(scalingFragment, getResourceString(R.string.scaling));
