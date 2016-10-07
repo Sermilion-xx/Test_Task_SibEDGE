@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -41,15 +42,14 @@ public class HostActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Utility.locale = Utility.getLangToPref(this);
-//        changeLang();
+
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host);
-
         ViewPager mViewPager = find(R.id.host_activity_viewPages);
         TabLayout mTabLayout = find(R.id.host_activity_tabLayout);
         Toolbar mToolbar = find(R.id.host_activity_toolbar);
@@ -183,29 +183,11 @@ public class HostActivity extends BaseActivity {
 
             return true;
         } else if (id == R.id.action_language) {
-            changeLang();
+            Utility.changeLang(this, false);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void changeLang() {
-        Locale current = getResources().getConfiguration().locale;
-        if (!current.equals(new Locale("ru"))) {
-            Utility.locale = "ru";
-        } else {
-            Utility.locale = current.getDisplayLanguage();
-        }
-        if (!current.equals(new Locale(Utility.locale))) {
-            Locale locale = new Locale(Utility.locale);
-            Locale.setDefault(locale);
-            Configuration config = new Configuration();
-            config.locale = locale;
-            this.getResources().updateConfiguration(config, this.getResources().getDisplayMetrics());
-            Utility.saveLangToPref(this, Utility.locale);
-            Intent intent = new Intent(HostActivity.this, HostActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        }
-    }
+
 }
