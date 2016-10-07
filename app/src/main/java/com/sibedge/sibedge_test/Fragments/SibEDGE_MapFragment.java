@@ -149,10 +149,12 @@ public class SibEDGE_MapFragment extends Fragment implements
     @Override
     public void onLocationChanged(Location location) {
         LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        mCoordinatesView.setText(getResources().getString(R.string.latitude)+": "+location.getLatitude() + " \n"+getResources().getString(R.string.longitude)+": "+location.getLongitude() );
-        mMap.addMarker(new MarkerOptions().position(myLocation).title(getResources().getString(R.string.you_are_here)).snippet(getResources().getString(R.string.my_location)));
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(myLocation).zoom(12).build();
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        if(isAdded()) {
+            mCoordinatesView.setText(getResources().getString(R.string.latitude) + ": " + location.getLatitude() + " \n" + getResources().getString(R.string.longitude) + ": " + location.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(myLocation).title(getResources().getString(R.string.you_are_here)).snippet(getResources().getString(R.string.my_location)));
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(myLocation).zoom(12).build();
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
     }
 
     @Override

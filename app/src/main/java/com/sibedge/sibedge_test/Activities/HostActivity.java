@@ -2,6 +2,8 @@ package com.sibedge.sibedge_test.Activities;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,8 +12,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.sibedge.sibedge_test.Adapters.ViewPagerAdapter;
@@ -25,12 +28,22 @@ import com.sibedge.sibedge_test.Utility.Utility;
 import com.sibedge.sibedge_test.R;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class HostActivity extends BaseActivity {
 
     private EditText userInput;
     private SibEDGE_ListFragment listFragment;
     private AlertDialog newItemalertDialog;
+    private int currentPage;
+    private int menuResourse = R.menu.menu;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Utility.locale = Utility.getLangToPref(this);
+//        changeLang();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +53,35 @@ public class HostActivity extends BaseActivity {
         ViewPager mViewPager = find(R.id.host_activity_viewPages);
         TabLayout mTabLayout = find(R.id.host_activity_tabLayout);
         Toolbar mToolbar = find(R.id.host_activity_toolbar);
-        Button mAddButton = find(R.id.list_add_button);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                currentPage = position;
+                if (position == 0) {
+                    invalidateOptionsMenu();
+                    menuResourse = R.menu.menu;
+                }else if(position == 1){
+                    invalidateOptionsMenu();
+                    menuResourse = R.menu.menu_alt;
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         mToolbar.setTitle("SibEDGE");
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listFragment.setItemClickType(Utility.ItemClick.ADD_BUTTON);
-                showNewItemDialog();
-            }
-        });
         ViewPagerAdapter mAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-
 
         ArrayList<ListRow> mItems = Utility.getItemsFromPref(this);
         listFragment = FragmentFactory.getListFragment();
@@ -117,6 +143,8 @@ public class HostActivity extends BaseActivity {
             @Override
             public boolean onKey(DialogInterface arg0, int keyCode,
                                  KeyEvent event) {
+                if (event.getAction() != KeyEvent.ACTION_DOWN)
+                    return true;
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     new AlertDialog.Builder(HostActivity.this)
                             .setIcon(android.R.drawable.ic_dialog_alert)
@@ -136,4 +164,48 @@ public class HostActivity extends BaseActivity {
         newItemalertDialog.show();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(menuResourse, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_add) {
+            if (currentPage == 0) {
+                listFragment.setItemClickType(Utility.ItemClick.ADD_BUTTON);
+                showNewItemDialog();
+            } else {
+
+            }
+
+            return true;
+        } else if (id == R.id.action_language) {
+            changeLang();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void changeLang() {
+        Locale current = getResources().getConfiguration().locale;
+        if (!current.equals(new Locale("ru"))) {
+            Utility.locale = "ru";
+        } else {
+            Utility.locale = current.getDisplayLanguage();
+        }
+        if (!current.equals(new Locale(Utility.locale))) {
+            Locale locale = new Locale(Utility.locale);
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            this.getResources().updateConfiguration(config, this.getResources().getDisplayMetrics());
+            Utility.saveLangToPref(this, Utility.locale);
+            Intent intent = new Intent(HostActivity.this, HostActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+    }
 }

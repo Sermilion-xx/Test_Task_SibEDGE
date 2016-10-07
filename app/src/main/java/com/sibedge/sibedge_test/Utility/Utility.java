@@ -47,6 +47,7 @@ public class Utility {
     public static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     public static int GALLERY_KITKAT_INTENT_CALLED = 1;
     public static int MEDIA_TYPE_IMAGE = 2;
+    public static String locale = "en";
 
     public enum ItemClick {LONG, SHORT, ADD_BUTTON}
 
@@ -56,6 +57,17 @@ public class Utility {
         String json = gson.toJson(mItems);
         editor.putString("mItems", json);
         editor.apply();
+    }
+
+    public static void saveLangToPref(Context mContext, String lang) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(mContext).edit();
+        editor.putString("lang", lang);
+        editor.apply();
+    }
+
+    public static String getLangToPref(Context mContext) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
+        return pref.getString("lang", "");
     }
 
     public static ArrayList<ListRow> getItemsFromPref(Context mContext) {
