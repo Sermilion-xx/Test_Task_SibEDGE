@@ -26,15 +26,15 @@ public class ScalingActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scaling);
-        Toolbar mToolbar = find(R.id.scaling_activity_toolbar);
+        Toolbar mToolbar = find(R.id.scaling_activity_toolbar, Toolbar.class);
         mToolbar.setTitle("Scaling Activity");
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         scalingImage = (TouchImageView) findViewById(R.id.scaling_image);
-        Button zoomInButton = find(R.id.button_zoom_in);
-        Button zoomOutButton = find(R.id.button_zoom_out);
+        Button zoomInButton = find(R.id.button_zoom_in, Button.class);
+        Button zoomOutButton = find(R.id.button_zoom_out, Button.class);
 
         Uri fileUri = getIntent().getParcelableExtra("fileUri");
         try {

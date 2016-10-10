@@ -48,7 +48,7 @@ public class BaseActivity extends AppCompatActivity {
         return getResources().getString(id);
     }
 
-    protected <T extends View> T find(int id){
-        return (T) findViewById(id);
+    protected <T extends View> T find(int id, Class<T> type){
+        return type.cast(findViewById(id));
     }
 }

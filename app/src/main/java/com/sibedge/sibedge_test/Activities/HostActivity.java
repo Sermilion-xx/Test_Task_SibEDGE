@@ -47,9 +47,9 @@ public class HostActivity extends BaseActivity implements ViewPager.OnPageChange
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host);
 
-        ViewPager mViewPager = find(R.id.host_activity_viewPages);
-        TabLayout mTabLayout = find(R.id.host_activity_tabLayout);
-        Toolbar mToolbar     = find(R.id.host_activity_toolbar);
+        ViewPager mViewPager = find(R.id.host_activity_viewPages, ViewPager.class);
+        TabLayout mTabLayout = find(R.id.host_activity_tabLayout, TabLayout.class);
+        Toolbar mToolbar     = find(R.id.host_activity_toolbar, Toolbar.class);
 
         mViewPager.addOnPageChangeListener(this);
 
