@@ -27,7 +27,7 @@ import static com.sibedge.sibedge_test.Utility.Utility.CAPTURE_IMAGE_ACTIVITY_RE
  * Created by Sermilion on 05/10/2016.
  */
 
-public class SibEDGE_ScalingFragment extends Fragment {
+public class SibEDGE_ScalingFragment extends Fragment implements View.OnClickListener {
 
     private ImageButton galleryButton;
     private ImageButton cameraButton;
@@ -39,33 +39,8 @@ public class SibEDGE_ScalingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_scaling, container, false);
         galleryButton = (ImageButton) view.findViewById(R.id.gallery_button);
         cameraButton = (ImageButton) view.findViewById(R.id.camera_button);
-
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                fileUri = Utility.getOutputMediaFileUri(Utility.MEDIA_TYPE_IMAGE, "scale_picture");
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-            }
-        });
-
-        galleryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT < 19) {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.please_choose_an_image)), Utility.GALLERY_INTENT_CALLED);
-                } else {
-                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                    intent.setType("image/*");
-                    intent.addCategory(Intent.CATEGORY_OPENABLE);
-                    startActivityForResult(intent, Utility.GALLERY_KITKAT_INTENT_CALLED);
-                }
-            }
-        });
+        galleryButton.setOnClickListener(SibEDGE_ScalingFragment.this);
+        cameraButton.setOnClickListener(SibEDGE_ScalingFragment.this);
         return view;
     }
 
@@ -104,4 +79,36 @@ public class SibEDGE_ScalingFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.gallery_button:
+                handleGalleryButtonPress();
+                break;
+            case R.id.camera_button:
+                handleCameraButtonPress();
+                break;
+        }
+    }
+
+    private void handleGalleryButtonPress() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        fileUri = Utility.getOutputMediaFileUri(Utility.MEDIA_TYPE_IMAGE, "scale_picture");
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+    }
+
+    private void handleCameraButtonPress() {
+        if (Build.VERSION.SDK_INT < 19) {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.please_choose_an_image)), Utility.GALLERY_INTENT_CALLED);
+        } else {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.setType("image/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            startActivityForResult(intent, Utility.GALLERY_KITKAT_INTENT_CALLED);
+        }
+    }
 }
