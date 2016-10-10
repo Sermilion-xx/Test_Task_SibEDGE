@@ -29,16 +29,14 @@ import static com.sibedge.sibedge_test.Utility.Utility.CAPTURE_IMAGE_ACTIVITY_RE
 
 public class SibEDGE_ScalingFragment extends Fragment implements View.OnClickListener {
 
-    private ImageButton galleryButton;
-    private ImageButton cameraButton;
     private Uri fileUri;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scaling, container, false);
-        galleryButton = (ImageButton) view.findViewById(R.id.gallery_button);
-        cameraButton = (ImageButton) view.findViewById(R.id.camera_button);
+        ImageButton galleryButton = (ImageButton) view.findViewById(R.id.gallery_button);
+        ImageButton cameraButton = (ImageButton) view.findViewById(R.id.camera_button);
         galleryButton.setOnClickListener(SibEDGE_ScalingFragment.this);
         cameraButton.setOnClickListener(SibEDGE_ScalingFragment.this);
         return view;

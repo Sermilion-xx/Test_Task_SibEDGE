@@ -2,11 +2,8 @@ package com.sibedge.sibedge_test.Activities;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -25,13 +22,12 @@ import com.sibedge.sibedge_test.Fragments.SibEDGE_MapFragment;
 import com.sibedge.sibedge_test.Fragments.SibEDGE_ScalingFragment;
 import com.sibedge.sibedge_test.Fragments.SibEDGE_ServiceFragment;
 import com.sibedge.sibedge_test.Model.ListRow;
-import com.sibedge.sibedge_test.Utility.Utility;
 import com.sibedge.sibedge_test.R;
+import com.sibedge.sibedge_test.Utility.Utility;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
-public class HostActivity extends BaseActivity {
+public class HostActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
     private EditText userInput;
     private SibEDGE_ListFragment listFragment;
@@ -50,32 +46,12 @@ public class HostActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host);
+
         ViewPager mViewPager = find(R.id.host_activity_viewPages);
         TabLayout mTabLayout = find(R.id.host_activity_tabLayout);
-        Toolbar mToolbar = find(R.id.host_activity_toolbar);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                currentPage = position;
-                if (position == 0) {
-                    invalidateOptionsMenu();
-                    menuResourse = R.menu.menu;
-                }else if(position == 1){
-                    invalidateOptionsMenu();
-                    menuResourse = R.menu.menu_alt;
-                }
-            }
+        Toolbar mToolbar     = find(R.id.host_activity_toolbar);
 
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        mViewPager.addOnPageChangeListener(this);
 
         mToolbar.setTitle("SibEDGE");
         setSupportActionBar(mToolbar);
@@ -177,10 +153,7 @@ public class HostActivity extends BaseActivity {
             if (currentPage == 0) {
                 listFragment.setItemClickType(Utility.ItemClick.ADD_BUTTON);
                 showNewItemDialog();
-            } else {
-
             }
-
             return true;
         } else if (id == R.id.action_language) {
             Utility.changeLang(this, false);
@@ -190,4 +163,25 @@ public class HostActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        currentPage = position;
+        if (position == 0) {
+            invalidateOptionsMenu();
+            menuResourse = R.menu.menu;
+        }else if(position == 1){
+            invalidateOptionsMenu();
+            menuResourse = R.menu.menu_alt;
+        }
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
 }
