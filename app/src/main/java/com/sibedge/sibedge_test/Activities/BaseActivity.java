@@ -18,7 +18,7 @@ import com.sibedge.sibedge_test.R;
  * Created by Sermilion on 05/10/2016.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     protected String INTENT_PARAM_PREFIX = "com.sibedge.sibedge_test";
 
