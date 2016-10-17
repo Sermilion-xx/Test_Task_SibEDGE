@@ -74,6 +74,7 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
             mTextView = (TextView) view.findViewById(R.id.list_textView);
             mImageButton = (ImageButton) view.findViewById(R.id.list_button);
             mListRecyclerAdapter = listRecyclerAdapter;
+
             view.setOnClickListener(this);
             view.setOnLongClickListener(this);
 
@@ -102,16 +103,13 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
         public void bindTitle(ListRow row, Context context) {
             mTextView.setText(row.getTitle());
             int icon_drawable_id;
-            int flag_drawable_id;
             if (getItemViewType() == 0) {
                 icon_drawable_id = R.drawable.ic_imac;
-                flag_drawable_id = R.drawable.ic_flag_inactive;
             } else {
                 icon_drawable_id = R.drawable.ic_tv;
-                flag_drawable_id = R.drawable.ic_flag_active;
             }
             mImageView.setImageDrawable(ContextCompat.getDrawable(context, icon_drawable_id));
-            mImageButton.setImageDrawable(ContextCompat.getDrawable(context, flag_drawable_id));
+//            mImageButton.setImageDrawable(ContextCompat.getDrawable(context, flag_drawable_id));
         }
 
         @Override
