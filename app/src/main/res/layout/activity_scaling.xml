@@ -15,29 +15,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:scaleType="matrix"
-        />
-
+        android:layout_gravity="center|center_vertical"
+        android:gravity="center|center_vertical"
+        android:scaleType="matrix" />
 
     <Button
-        android:text="@string/zoom_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button_zoom_out"
-        android:layout_alignParentEnd="true"
         android:id="@+id/button_zoom_in"
-        android:textAllCaps="false"
-        android:layout_marginEnd="25dp" />
-
-    <Button
-        android:text="@string/zoom_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="23dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/button_zoom_out"
+        android:layout_marginEnd="25dp"
+        android:text="@string/zoom_out"
+        android:textAllCaps="false" />
+
+    <Button
         android:id="@+id/button_zoom_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:textAllCaps="false"
-        android:layout_marginStart="25dp" />
+        android:layout_marginBottom="23dp"
+        android:layout_marginStart="25dp"
+        android:text="@string/zoom_in"
+        android:textAllCaps="false" />
 
 </RelativeLayout>

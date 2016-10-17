@@ -1,19 +1,13 @@
 package com.sibedge.sibedge_test.Adapters;
 
-import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.sibedge.sibedge_test.Model.ListRow;
 import com.sibedge.sibedge_test.Model.XmlListRow;
 import com.sibedge.sibedge_test.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -27,11 +21,6 @@ public class ServiceRecyclerAdapter extends RecyclerView.Adapter<ServiceRecycler
 
     public ServiceRecyclerAdapter(ArrayList<XmlListRow> items) {
         this.mItems = items;
-    }
-
-    public void setmItems(ArrayList<XmlListRow> mItems) {
-        this.mItems = mItems;
-        notifyDataSetChanged();
     }
 
     @Override

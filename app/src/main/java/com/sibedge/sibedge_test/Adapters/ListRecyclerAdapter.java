@@ -12,10 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sibedge.sibedge_test.Fragments.SibEDGE_ListFragment;
-import com.sibedge.sibedge_test.Utility.ClickListener;
 import com.sibedge.sibedge_test.Model.ListRow;
-import com.sibedge.sibedge_test.Utility.Utility;
 import com.sibedge.sibedge_test.R;
+import com.sibedge.sibedge_test.Utility.ClickListener;
+import com.sibedge.sibedge_test.Utility.Utility;
 
 import java.util.ArrayList;
 
@@ -109,7 +109,6 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
                 icon_drawable_id = R.drawable.ic_tv;
             }
             mImageView.setImageDrawable(ContextCompat.getDrawable(context, icon_drawable_id));
-//            mImageButton.setImageDrawable(ContextCompat.getDrawable(context, flag_drawable_id));
         }
 
         @Override

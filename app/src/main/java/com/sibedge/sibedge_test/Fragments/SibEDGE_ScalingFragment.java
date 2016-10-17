@@ -89,14 +89,14 @@ public class SibEDGE_ScalingFragment extends Fragment implements View.OnClickLis
         }
     }
 
-    private void handleGalleryButtonPress() {
+    private void handleCameraButtonPress() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         fileUri = Utility.getOutputMediaFileUri(Utility.MEDIA_TYPE_IMAGE, "scale_picture");
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
     }
 
-    private void handleCameraButtonPress() {
+    private void handleGalleryButtonPress() {
         if (Build.VERSION.SDK_INT < 19) {
             Intent intent = new Intent();
             intent.setType("image/*");

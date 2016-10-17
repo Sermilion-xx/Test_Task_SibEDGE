@@ -93,7 +93,7 @@ public class HostActivity extends BaseActivity implements ViewPager.OnPageChange
         }
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("OK",
+                .setPositiveButton(getResourceString(R.string.ok),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 String title = userInput.getText().toString();
@@ -107,7 +107,7 @@ public class HostActivity extends BaseActivity implements ViewPager.OnPageChange
 
                             }
                         })
-                .setNegativeButton("Revert", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResourceString(R.string.revert), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
@@ -123,9 +123,9 @@ public class HostActivity extends BaseActivity implements ViewPager.OnPageChange
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     new AlertDialog.Builder(HostActivity.this)
                             .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setTitle("Add Item")
-                            .setMessage("Are you sure you want to finish?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            .setTitle(getResourceString(R.string.add_item))
+                            .setMessage(getResourceString(R.string.confirm_finish))
+                            .setPositiveButton(getResourceString(R.string.yes), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
@@ -143,7 +143,7 @@ public class HostActivity extends BaseActivity implements ViewPager.OnPageChange
                             }
                             return false;
                         }
-                    }).setNegativeButton("No", null).show();
+                    }).setNegativeButton(getResourceString(R.string.confirm_finish), null).show();
 
                 }
                 return false;

@@ -23,15 +23,12 @@ import javax.xml.parsers.ParserConfigurationException;
 public class XMLParser {
 
     public static final String KEY_RESULT = "result";
-    public static final String KEY_TOTAL_PAGES = "totalPages";
-    public static final String KEY_QUOTES = "quotes";
-    public static final String KEY_QUOTE = "quote";
     public static final String KEY_ID = "id";
     public static final String KEY_DATE = "date";
     public static final String KEY_TEXT = "text";
 
     public Document getDomElement(String xml){
-        Document doc = null;
+        Document doc;
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
 
@@ -51,7 +48,6 @@ public class XMLParser {
             Log.e("Error: ", e.getMessage());
             return null;
         }
-        // return DOM
         return doc;
     }
 
@@ -60,7 +56,7 @@ public class XMLParser {
         return this.getElementValue(n.item(0));
     }
 
-    public final String getElementValue( Node elem ) {
+    private final String getElementValue(Node elem) {
         Node child;
         if( elem != null){
             if (elem.hasChildNodes()){

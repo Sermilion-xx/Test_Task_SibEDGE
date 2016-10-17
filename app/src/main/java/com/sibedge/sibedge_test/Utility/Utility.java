@@ -14,7 +14,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.internal.Excluder;
 import com.google.gson.reflect.TypeToken;
 import com.sibedge.sibedge_test.Activities.HostActivity;
 import com.sibedge.sibedge_test.Model.ListRow;
@@ -30,7 +29,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -39,8 +37,6 @@ import okio.Buffer;
 import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.Okio;
-
-import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 
 /**
  * Created by Sermilion on 05/10/2016.
@@ -221,10 +217,7 @@ public class Utility {
         Configuration config = new Configuration();
         config.locale = locale;
         activity.getResources().updateConfiguration(config, activity.getResources().getDisplayMetrics());
-//        if(first)
         Utility.saveLangToPref(activity, langNum.get(Utility.locale));
-//        else
-//            Utility.saveLangToPref(activity, Utility.locale);
         Intent intent = new Intent(activity, HostActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);

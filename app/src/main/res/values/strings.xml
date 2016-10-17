@@ -16,6 +16,13 @@
     <string name="you_are_here">You are here!</string>
     <string name="my_location">My Location</string>
     <string name="language">Russian</string>
+    <string name="scaling_activity">Scaling Activity</string>
+    <string name="ok">OK</string>
+    <string name="confirm_finish">Are you sure you want to finish?</string>
+    <string name="add_item">Add item</string>
+    <string name="yes">Yes</string>
+    <string name="revert">Revert</string>
+    <string name="no">No</string>
 
 
     <string name="xmlURL">http://storage.space-o.ru/testXmlFeed.xml</string>

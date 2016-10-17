@@ -8,8 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.sibedge.sibedge_test.R;
 import com.sibedge.sibedge_test.Model.TouchImageView;
+import com.sibedge.sibedge_test.R;
 import com.sibedge.sibedge_test.Utility.Utility;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class ScalingActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scaling);
         Toolbar mToolbar = find(R.id.scaling_activity_toolbar, Toolbar.class);
-        mToolbar.setTitle("Scaling Activity");
+        mToolbar.setTitle(getResourceString(R.string.scaling_activity));
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
