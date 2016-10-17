@@ -1,10 +1,13 @@
 package com.sibedge.sibedge_test.Utility;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -203,49 +206,46 @@ public class TouchImageView extends ImageView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        viewWidth = MeasureSpec.getSize(widthMeasureSpec);
-        viewHeight = MeasureSpec.getSize(heightMeasureSpec);
-
-        //
-        // Rescales image on rotation
-        //
-        if (oldMeasuredHeight == viewWidth && oldMeasuredHeight == viewHeight
-                || viewWidth == 0 || viewHeight == 0)
+        Drawable drawable = getDrawable();
+        if (drawable == null || drawable.getIntrinsicWidth() == 0 || drawable.getIntrinsicHeight() == 0) {
+            setMeasuredDimension(0, 0);
             return;
-        oldMeasuredHeight = viewHeight;
-        oldMeasuredWidth = viewWidth;
-
-        if (saveScale == 1) {
-            //Fit to screen.
-            float scale;
-
-            Drawable drawable = getDrawable();
-            if (drawable == null || drawable.getIntrinsicWidth() == 0 || drawable.getIntrinsicHeight() == 0)
-                return;
-            int bmWidth = drawable.getIntrinsicWidth();
-            int bmHeight = drawable.getIntrinsicHeight();
-
-            Log.d("bmSize", "bmWidth: " + bmWidth + " bmHeight : " + bmHeight);
-
-            float scaleX = (float) viewWidth / (float) bmWidth;
-            float scaleY = (float) viewHeight / (float) bmHeight;
-            scale = Math.min(scaleX, scaleY);
-            matrix.setScale(scale, scale);
-
-            // Center the image
-            float redundantYSpace = (float) viewHeight - (scale * (float) bmHeight);
-            float redundantXSpace = (float) viewWidth - (scale * (float) bmWidth);
-            redundantYSpace /= (float) 2;
-            redundantXSpace /= (float) 2;
-
-            matrix.postTranslate(redundantXSpace, redundantYSpace);
-
-            origWidth = viewWidth - 2 * redundantXSpace;
-            origHeight = viewHeight - 2 * redundantYSpace;
-            setImageMatrix(matrix);
         }
+        int drawableWidth = drawable.getIntrinsicWidth();
+        int drawableHeight = drawable.getIntrinsicHeight();
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        viewWidth = setViewSize(widthMode, widthSize, drawableWidth);
+        viewHeight = setViewSize(heightMode, heightSize, drawableHeight);
+        setMeasuredDimension(viewWidth, viewHeight);
         fixTrans();
     }
+
+        private int setViewSize(int mode, int size, int drawableWidth) {
+        int viewSize;
+        switch (mode) {
+            case MeasureSpec.EXACTLY:
+                viewSize = size;
+                break;
+
+            case MeasureSpec.AT_MOST:
+                viewSize = Math.min(drawableWidth, size);
+                break;
+
+            case MeasureSpec.UNSPECIFIED:
+                viewSize = drawableWidth;
+                break;
+
+            default:
+                viewSize = size;
+                break;
+        }
+        return viewSize;
+    }
+
+
 
     public void zoomOut() {
         if (saveScale <= maxScale) {

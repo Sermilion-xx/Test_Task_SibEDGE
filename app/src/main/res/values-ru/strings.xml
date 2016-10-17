@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">SibEDGE_Test</string>
+
+    <string name="list">Лист</string>
+    <string name="scaling">Увеличение</string>
+    <string name="service">Сервис</string>
+    <string name="map">Карта</string>
+    <string name="add">Добавить</string>
+    <string name="item_name">Имя предмета:</string>
+    <string name="please_choose_an_image">Выберите картинку</string>
+    <string name="zoom_out">Уменьшить</string>
+    <string name="zoom_in">Увеличить</string>
+    <string name="title_activity_maps">Карта</string>
+    <string name="latitude">Широта</string>
+    <string name="longitude">Долгота</string>
+    <string name="you_are_here">Вы здесь!</string>
+    <string name="my_location">Мое местоположение</string>
+    <string name="language">Английский</string>
+    <string name="scaling_activity">Активити масштабирования</string>
+    <string name="ok">OK</string>
+    <string name="confirm_finish">Уверенны, что хотите завершить?</string>
+    <string name="add_item">Добавить предмет</string>
+    <string name="yes">Да</string>
+    <string name="revert">Отмеить</string>
+    <string name="no">Нет</string>
+    
+
+    <string name="xmlURL">http://storage.space-o.ru/testXmlFeed.xml</string>
+
+
+    <!--    Permissions    -->
+    <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>
+    <string name="location_permission_denied">This sample requires location permission to enable the \'my location\' layer. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'Google Maps API Demos\'.</string>
+    <string name="permission_required_toast">Location permission is required for this demo.</string>
+
+</resources>

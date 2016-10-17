@@ -1,7 +1,5 @@
 package com.sibedge.sibedge_test.Fragments;
 
-import android.support.v4.app.Fragment;
-
 import org.jetbrains.annotations.Contract;
 
 /**

@@ -10,13 +10,12 @@
         android:background="@color/colorPrimary"
         android:fitsSystemWindows="true" />
 
-    <com.sibedge.sibedge_test.Model.TouchImageView
+    <com.sibedge.sibedge_test.Utility.TouchImageView
         android:id="@+id/scaling_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_gravity="center|center_vertical"
-        android:gravity="center|center_vertical"
+        android:gravity="center"
         android:scaleType="matrix" />
 
     <Button

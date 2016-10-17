@@ -56,7 +56,7 @@ public class XMLParser {
         return this.getElementValue(n.item(0));
     }
 
-    private final String getElementValue(Node elem) {
+    private String getElementValue(Node elem) {
         Node child;
         if( elem != null){
             if (elem.hasChildNodes()){
