@@ -49,7 +49,7 @@ public class HostActivity extends BaseActivity implements ViewPager.OnPageChange
 
         ViewPager mViewPager = find(R.id.host_activity_viewPages, ViewPager.class);
         TabLayout mTabLayout = find(R.id.host_activity_tabLayout, TabLayout.class);
-        Toolbar mToolbar     = find(R.id.host_activity_toolbar, Toolbar.class);
+        Toolbar mToolbar = find(R.id.host_activity_toolbar, Toolbar.class);
 
         mViewPager.addOnPageChangeListener(this);
 
@@ -107,12 +107,11 @@ public class HostActivity extends BaseActivity implements ViewPager.OnPageChange
 
                             }
                         })
-                .setNegativeButton("Revert",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+                .setNegativeButton("Revert", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
         newItemalertDialog = alertDialogBuilder.create();
 
         newItemalertDialog.setOnKeyListener(new Dialog.OnKeyListener() {
@@ -132,7 +131,20 @@ public class HostActivity extends BaseActivity implements ViewPager.OnPageChange
                                     dialog.dismiss();
                                     newItemalertDialog.dismiss();
                                 }
-                            }).setNegativeButton("No", null).show();
+                            }).setOnKeyListener(new Dialog.OnKeyListener() {
+                        @Override
+                        public boolean onKey(DialogInterface arg0, int keyCode,
+                                             KeyEvent event) {
+                            if (event.getAction() != KeyEvent.ACTION_DOWN)
+                                return true;
+                            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                                arg0.dismiss();
+                                newItemalertDialog.dismiss();
+                            }
+                            return false;
+                        }
+                    }).setNegativeButton("No", null).show();
+
                 }
                 return false;
             }
@@ -169,7 +181,7 @@ public class HostActivity extends BaseActivity implements ViewPager.OnPageChange
         if (position == 0) {
             invalidateOptionsMenu();
             menuResourse = R.menu.menu;
-        }else if(position == 1){
+        } else if (position == 1) {
             invalidateOptionsMenu();
             menuResourse = R.menu.menu_alt;
         }

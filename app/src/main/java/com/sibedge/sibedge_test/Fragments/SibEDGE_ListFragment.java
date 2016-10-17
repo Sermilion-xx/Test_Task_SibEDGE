@@ -3,6 +3,7 @@ package com.sibedge.sibedge_test.Fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,10 +28,8 @@ import java.util.ArrayList;
  * Created by Sermilion on 05/10/2016.
  */
 
-public class SibEDGE_ListFragment extends BaseFragment {
+public class SibEDGE_ListFragment extends Fragment {
 
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLinearLayoutManager;
     private ListRecyclerAdapter mAdapter;
     private ArrayList<ListRow> mItems;
     private Utility.ItemClick itemClickType;
@@ -74,8 +73,8 @@ public class SibEDGE_ListFragment extends BaseFragment {
             mItems = savedInstanceState.getParcelableArrayList("mItems");
         }
         View view = inflater.inflate(R.layout.fragment_list, container, false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.list_recyclerView);
-        mLinearLayoutManager = new LinearLayoutManager(getContext());
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.list_recyclerView);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
         mAdapter = new ListRecyclerAdapter(mItems, getContext(), this);
@@ -88,7 +87,6 @@ public class SibEDGE_ListFragment extends BaseFragment {
 
             @Override
             public void onItemLongClick(final int pos, final View v) {
-                Log.d("Click", "onItemLongClick pos = " + pos);
                 itemClickType = Utility.ItemClick.LONG;
                 String names[] = {"Edit", "Delete"};
 
@@ -117,7 +115,6 @@ public class SibEDGE_ListFragment extends BaseFragment {
                 );
                 optionsDialog = alertDialog.create();
                 optionsDialog.show();
-                Log.d("Click", "onItemClick position: " + pos);
             }
         });
         mRecyclerView.setAdapter(mAdapter);

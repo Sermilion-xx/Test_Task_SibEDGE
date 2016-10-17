@@ -36,7 +36,6 @@ public class SibEDGE_ServiceFragment extends Fragment implements AsyncResponse {
 
     private ProgressBar mprogressBar;
     private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLinearLayoutManager;
     private ServiceRecyclerAdapter mAdapter;
     private ArrayList<XmlListRow> mItems = new ArrayList<>();
 
@@ -101,7 +100,7 @@ public class SibEDGE_ServiceFragment extends Fragment implements AsyncResponse {
         mprogressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         if (mItems.size() == 0)
             mprogressBar.setVisibility(View.VISIBLE);
-        mLinearLayoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mAdapter = new ServiceRecyclerAdapter(mItems);
         mRecyclerView.setAdapter(mAdapter);
